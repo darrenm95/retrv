@@ -25,21 +25,25 @@ exports.getSingleCard = async (req, res) => {
     });
 };
 
-exports.createCard = (req, res) => {
-  const newCard = {
-    id: uuid.v4(),
-    question: req.body.question,
-    answer: req.body.answer
-  };
-
-  if (!newCard.question || !newCard.answer) {
-    return res
-      .status(400)
-      .json({ message: "Please include a question and answer" });
-  }
-
-  cards.push(newCard);
-  res.status(201).json(cards);
+exports.createCard = async (req, res) => {
+  await new Cards(req.body).save((err, data) => {
+      if (err) {
+          res.status(500).json({
+              message:
+              "Something went wrong, please try again later."
+          });
+      } else {
+          res.status(200).json({
+              message: "Card Created!",
+              data,
+          });
+      }
+  });
+  // else if (!cards.question || !cards.answer) {
+  //   return res.status(400).json({ 
+  //     message: 
+  //     "Please include a question and answer" 
+  //   });
 };
 
 exports.updateCard = (req, res) => {
