@@ -1,7 +1,11 @@
 const uuid = require("uuid");
-let cards = require("../../Cards");
+const mongoose = require('mongoose')
+const Cards = mongoose.model('cards')
 
-exports.getAllCards = (req, res) => res.status(200).json(cards);
+exports.getAllCards = async (req, res) => {
+  const cards = await Cards.find();
+  res.json(cards);
+}
 
 exports.getSingleCard = (req, res) => {
   const found = cards.some((card) => card.id === req.params.id);

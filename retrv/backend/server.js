@@ -1,3 +1,4 @@
+require('./models/CardModel')
 require('dotenv').config({ path: '.env '})
 const { PORT } = require('./config');
 
