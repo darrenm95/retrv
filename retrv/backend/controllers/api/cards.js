@@ -63,18 +63,18 @@ exports.updateCard = async (req, res) => {
     });
 }
 
-exports.deleteCard = (req, res) => {
-  const found = cards.some((card) => card.id === req.params.id);
-
-  if (found) {
-    cards = cards.filter((card) => card.id !== req.params.id);
-    res.status(200).json({
-      message: "Card deleted",
-      cards: cards
-    });
-  } else {
-    res.status(400).json({
-      message: `No card with the id of ${req.params.id}`
-    });
-  }
+exports.deleteCard = async (req, res) => {
+  let cardID = req.params.id;
+  await Cards.deleteOne({ _id: cardID }, (err, data) => {
+      if (err) {
+          res.status(500).json({
+              message:
+              "Something went wrong, please try again later."
+          });
+      } else {
+          res.status(200).json({
+              message: "Card Deleted!"
+          });
+      }
+  });
 };
