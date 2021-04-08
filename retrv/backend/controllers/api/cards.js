@@ -46,25 +46,22 @@ exports.createCard = async (req, res) => {
   //   });
 };
 
-exports.updateCard = (req, res) => {
-  const found = cards.some((card) => card.id === req.params.id);
-
-  if (found) {
-    const updCard = req.body;
-    cards.find((card) => {
-      if (card.id === req.params.id) {
-        card.question = updCard.question ? updCard.question : card.question;
-        card.answer = updCard.answer ? updCard.answer : card.answer;
-
-        res.status(200).json({ message: "Card updated", card });
-      }
+exports.updateCard = async (req, res) => {
+  let cardID = req.params.id;
+    await Cards.findByIdAndUpdate({_id: cardID}, {$set : req.body}, (err, data) => {
+        if (err) {
+            res.status(500).json({
+                message:
+                "Something went wrong, please try again later.",
+            });
+        } else {
+            res.status(200).json({
+                message: "Card Updated!",
+                data,
+            });
+        }
     });
-  } else {
-    res.status(400).json({
-      message: `No card with the id of ${req.params.id}`
-    });
-  }
-};
+}
 
 exports.deleteCard = (req, res) => {
   const found = cards.some((card) => card.id === req.params.id);
