@@ -7,16 +7,22 @@ exports.getAllCards = async (req, res) => {
   res.json(cards);
 }
 
-exports.getSingleCard = (req, res) => {
-  const found = cards.some((card) => card.id === req.params.id);
-
-  if (found) {
-    res.status(200).json(cards.find((card) => card.id === req.params.id));
-  } else {
-    res.status(400).json({
-      message: `No card with the id of ${req.params.id}`
+exports.getSingleCard = async (req, res) => {
+  let cardID = req.params.id;
+  await Cards.findById({ _id: cardID }, (err, data) => {
+        if (err) {
+            res.status(500).json({
+                message:
+                "Cannot find a card with that information, please try again.",
+        });
+        } else {
+            console.log(data);
+            res.status(200).json({
+                message: "Card found!",
+                data
+            });
+        }
     });
-  }
 };
 
 exports.createCard = (req, res) => {
