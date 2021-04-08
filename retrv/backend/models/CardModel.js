@@ -8,10 +8,12 @@ const CardsSchema = new mongoose.Schema({
         type: Number
     },
     question: {
-        type: String
+        type: String,
+        required: true
     },
     answer: {
-        type: String
+        type: String,
+        required: true
     }
 });
 
