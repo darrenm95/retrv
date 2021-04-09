@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
+const Schema = mongoose.Schema;
+const ObjectId = Schema.ObjectId;
+
 // create study cards schema
-const StudyCardsSchema = new mongoose.Schema({
+const StudyCardsSchema = new Schema({
   id: {
-    type: Number,
+    type: ObjectId,
+    required: true,
   },
   question: {
     type: String,

@@ -3,7 +3,7 @@ const StudyCards = mongoose.model("studycards");
 
 exports.getAllStudyCards = async (req, res) => {
   try {
-    const studyCards = await StudyCards.find({}).toArray();
+    const studyCards = await StudyCards.find({});
     res.status(200).json(studyCards);
   } catch (e) {
     res.status(500).send(e);
