@@ -41,7 +41,7 @@ exports.updateStudyCard = async (req, res) => {
     const updatedStudyCard = await StudyCards.findByIdAndUpdate(
       { _id: studyCardId },
       { $set: req.body },
-      { upsert: true }
+      { upsert: true, new: true }
     );
     res.status(200).json(updatedStudyCard);
   } catch (e) {
