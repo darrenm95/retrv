@@ -77,3 +77,24 @@ exports.getSingleSpacedRetrievalQuestion = async (req, res) => {
     res.status(500).send(e);
   }
 };
+
+exports.getSingleSpacedRetrievalAnswer = async (req, res) => {
+  const spacedRetrievalId = mongoose.Types.ObjectId(req.params.id);
+
+  try {
+    const spacedRetrieval = await StudyCards.findById({
+      _id: spacedRetrievalId,
+    });
+
+    const spacedRetrievalAnswer = {
+      _id: spacedRetrieval._id,
+      question: spacedRetrieval.question,
+      answer: spacedRetrieval.answer,
+      nextStudyCardId: spacedRetrieval.nextStudyCardId,
+    };
+
+    res.status(200).json(spacedRetrievalAnswer);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+};

@@ -14,11 +14,11 @@ router.get(
   spacedRetrievalsController.getSingleSpacedRetrievalQuestion
 );
 
-// // Get ONE Spacedretrieval answer
-// router.get(
-//   "/:id/question",
-//   spacedRetrievalsController.getSingleSpacedRetrievalAnswer
-// );
+// Get ONE Spacedretrieval answer
+router.get(
+  "/:id/answer",
+  spacedRetrievalsController.getSingleSpacedRetrievalAnswer
+);
 
 // // Update ONE Spacedretrieval
 // router.get("/:id", spacedRetrievalsController.updateSpacedRetrieval);
