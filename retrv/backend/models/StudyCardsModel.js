@@ -8,7 +8,6 @@ const ObjectId = Schema.ObjectId;
 const StudyCardsSchema = new Schema({
   id: {
     type: ObjectId,
-    required: true,
   },
   question: {
     type: String,

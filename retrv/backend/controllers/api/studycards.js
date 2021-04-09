@@ -22,22 +22,20 @@ exports.getSingleStudyCard = async (req, res) => {
 };
 
 exports.createStudyCard = async (req, res) => {
-  await new StudyCards(req.body).save((err, data) => {
-    if (err) {
-      res.status(500).json({
-        message: "Something went wrong, please try again later.",
-      });
-    } else {
-      res.status(200).json({
-        message: "Card Created!",
-        data,
-      });
-    }
-  });
+  const { question, answer } = req.body;
+  try {
+    const newStudyCard = new StudyCards({ question, answer });
+    await newStudyCard.save();
+    res
+      .status(201)
+      .json({ Location: `/api/studycards/${newStudyCard._id}`, newStudyCard });
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 
 exports.updateStudyCard = async (req, res) => {
-  let studyCardId = req.params.id;
+  const studyCardId = req.params.id;
   await StudyCards.findByIdAndUpdate(
     { _id: studyCardId },
     { $set: req.body },
