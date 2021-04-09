@@ -36,22 +36,17 @@ exports.createStudyCard = async (req, res) => {
 
 exports.updateStudyCard = async (req, res) => {
   const studyCardId = req.params.id;
-  await StudyCards.findByIdAndUpdate(
-    { _id: studyCardId },
-    { $set: req.body },
-    (err, data) => {
-      if (err) {
-        res.status(500).json({
-          message: "Something went wrong, please try again later.",
-        });
-      } else {
-        res.status(200).json({
-          message: "Card Updated!",
-          data,
-        });
-      }
-    }
-  );
+  const { question, answer } = req.body;
+  try {
+    const updatedStudyCard = await StudyCards.findByIdAndUpdate(
+      { _id: studyCardId },
+      { $set: req.body },
+      { upsert: true }
+    );
+    res.status(200).json(updatedStudyCard);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 
 exports.deleteStudyCard = async (req, res) => {
