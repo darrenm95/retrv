@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 const studyCardsController = require("../../controllers/api/studycards");
 
-// Get ALL Cards
+// Get ALL Studycards
 router.get("/", studyCardsController.getAllStudyCards);
 
-// Get ONE Card
+// Get ONE Studycard
 router.get("/:id", studyCardsController.getSingleStudyCard);
 
-// Create Card
+// Create Studycard
 router.post("/", studyCardsController.createStudyCard);
 
-// Update Card
+// Update Studycard
 router.put("/:id", studyCardsController.updateStudyCard);
 
-// Delete Card
+// Delete Studycard
 router.delete("/:id", studyCardsController.deleteStudyCard);
 
 module.exports = router;
