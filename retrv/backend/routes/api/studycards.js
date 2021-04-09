@@ -3,18 +3,18 @@ const router = express.Router();
 const studyCardsController = require("../../controllers/api/studycards");
 
 // Get ALL Cards
-router.get("/", studyCardsController.getAllCards);
+router.get("/", studyCardsController.getAllStudyCards);
 
 // Get ONE Card
-router.get("/:id", studyCardsController.getSingleCard);
+router.get("/:id", studyCardsController.getSingleStudyCard);
 
 // Create Card
-router.post("/", studyCardsController.createCard);
+router.post("/", studyCardsController.createStudyCard);
 
 // Update Card
-router.put("/:id", studyCardsController.updateCard);
+router.put("/:id", studyCardsController.updateStudyCard);
 
 // Delete Card
-router.delete("/:id", studyCardsController.deleteCard);
+router.delete("/:id", studyCardsController.deleteStudyCard);
 
 module.exports = router;

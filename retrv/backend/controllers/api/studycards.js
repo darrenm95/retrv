@@ -1,10 +1,13 @@
-const uuid = require("uuid");
 const mongoose = require("mongoose");
 const StudyCards = mongoose.model("cards");
 
 exports.getAllStudyCards = async (req, res) => {
-  const studyCards = await StudyCards.find();
-  res.json(studyCards);
+  try {
+    const studyCards = await StudyCards.find({}).toArray();
+    res.status(200).json(studyCards);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 
 exports.getSingleStudyCard = async (req, res) => {
