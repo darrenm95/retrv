@@ -35,7 +35,7 @@ exports.createStudyCard = async (req, res) => {
 };
 
 exports.updateStudyCard = async (req, res) => {
-  const studyCardId = req.params.id;
+  const studyCardId = mongoose.Types.ObjectId(req.params.id);
   const { question, answer } = req.body;
   try {
     const updatedStudyCard = await StudyCards.findByIdAndUpdate(
@@ -50,16 +50,11 @@ exports.updateStudyCard = async (req, res) => {
 };
 
 exports.deleteStudyCard = async (req, res) => {
-  let studyCardId = req.params.id;
-  await StudyCards.deleteOne({ _id: studyCardId }, (err, data) => {
-    if (err) {
-      res.status(500).json({
-        message: "Something went wrong, please try again later.",
-      });
-    } else {
-      res.status(200).json({
-        message: "Card Deleted!",
-      });
-    }
-  });
+  const studyCardId = mongoose.Types.ObjectId(req.params.id);
+  try {
+    await StudyCards.deleteOne({ _id: studyCardId });
+    res.status(204).json({});
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
