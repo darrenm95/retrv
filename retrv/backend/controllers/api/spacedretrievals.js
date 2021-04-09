@@ -31,3 +31,17 @@ exports.getAllSpacedRetrievals = async (req, res) => {
     res.status(500).send(e);
   }
 };
+
+exports.getSingleSpacedRetrieval = async (req, res) => {
+  const spacedRetrievalId = mongoose.Types.ObjectId(req.params.id);
+
+  try {
+    const spacedRetrieval = await StudyCards.findById({
+      _id: spacedRetrievalId,
+    });
+
+    res.status(200).json(spacedRetrieval);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+};

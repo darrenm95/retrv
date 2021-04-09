@@ -11,7 +11,7 @@ exports.getAllStudyCards = async (req, res) => {
 };
 
 exports.getSingleStudyCard = async (req, res) => {
-  const studyCardId = req.params.id;
+  const studyCardId = mongoose.Types.ObjectId(req.params.id);
 
   try {
     const studyCard = await StudyCards.findById({ _id: studyCardId });
@@ -63,7 +63,7 @@ exports.updateStudyCard = async (req, res) => {
   try {
     const updatedStudyCard = await StudyCards.findByIdAndUpdate(
       { _id: studyCardId },
-      { $set: req.body },
+      { $set: { question, answer } },
       { upsert: true, new: true }
     );
     res.status(200).json(updatedStudyCard);
