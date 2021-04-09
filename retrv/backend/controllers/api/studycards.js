@@ -11,20 +11,14 @@ exports.getAllStudyCards = async (req, res) => {
 };
 
 exports.getSingleStudyCard = async (req, res) => {
-  let studyCardId = req.params.id;
-  await StudyCards.findById({ _id: studyCardId }, (err, data) => {
-    if (err) {
-      res.status(500).json({
-        message: "Cannot find a card with that information, please try again.",
-      });
-    } else {
-      console.log(data);
-      res.status(200).json({
-        message: "Card found!",
-        data,
-      });
-    }
-  });
+  const studyCardId = req.params.id;
+
+  try {
+    const studyCard = await StudyCards.findById({ _id: studyCardId });
+    res.status(200).json(studyCard);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 
 exports.createStudyCard = async (req, res) => {
