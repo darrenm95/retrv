@@ -17,6 +17,25 @@ const StudyCardsSchema = new Schema({
     type: String,
     required: true,
   },
+  correctAttempts: {
+    type: Number,
+    required: true,
+  },
+  latestCorrectAttempt: {
+    type: Boolean,
+    required: true,
+  },
+  dueRetrvTime: {
+    type: Number,
+    required: true,
+  },
+  first: {
+    type: Boolean,
+    required: true,
+  },
+  nextStudyCardId: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("studycards", StudyCardsSchema);
