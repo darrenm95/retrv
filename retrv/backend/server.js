@@ -1,27 +1,23 @@
-require('./models/CardModel')
-require('dotenv').config({ path: '.env '})
-const { PORT } = require('./config');
+const mongoose = require("mongoose");
+const { PORT, DATABASE } = require("./config");
+
+// Database Connection
+mongoose.connect(DATABASE, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
+
+mongoose.Promise = global.Promise;
+mongoose.connection.on("error", (err) => {
+  console.error(`Database Connection Error -> ${err.message}`);
+});
+
+require("./models/StudyCardsModel");
 
 // Import app
-const app = require('./app');
-
-// Import Mongoose
-const mongoose = require('mongoose');
+const app = require("./app");
 
 // Start the Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
-
-// Database Connection
-mongoose.connect(process.env.DATABASE,
-  {
-      useUnifiedTopology: true,
-      useNewUrlParser: true
-  }
-);
-
-mongoose.Promise = global.Promise;
-mongoose.connection.on('error', (err) => {
-  console.error(`Database Connection Error -> ${err.message}`);
 });
