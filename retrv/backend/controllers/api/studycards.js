@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const StudyCards = mongoose.model("cards");
+const StudyCards = mongoose.model("studycards");
 
 exports.getAllStudyCards = async (req, res) => {
   try {
