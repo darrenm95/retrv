@@ -9,18 +9,18 @@ router.get("/", spacedRetrievalsController.getAllSpacedRetrievals);
 router.get("/:id", spacedRetrievalsController.getSingleSpacedRetrieval);
 
 // // Get ONE Spacedretrieval question
-// router.get(
-//   "/:id/question",
-//   spacedRetrievalsController.getSingleSpacedRetrievalQuestion
-// );
+router.get(
+  "/:id/question",
+  spacedRetrievalsController.getSingleSpacedRetrievalQuestion
+);
 
-// // Get ONE Spacedretrieval question
+// // Get ONE Spacedretrieval answer
 // router.get(
 //   "/:id/question",
 //   spacedRetrievalsController.getSingleSpacedRetrievalAnswer
 // );
 
-// // Get ONE Spacedretrieval
+// // Update ONE Spacedretrieval
 // router.get("/:id", spacedRetrievalsController.updateSpacedRetrieval);
 
 module.exports = router;
