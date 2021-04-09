@@ -21,7 +21,7 @@ const StudyCardsSchema = new Schema({
     type: Number,
     required: true,
   },
-  latestCorrectAttempt: {
+  latestAttemptCorrect: {
     type: Boolean,
     required: true,
   },

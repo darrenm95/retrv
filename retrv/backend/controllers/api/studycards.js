@@ -23,8 +23,31 @@ exports.getSingleStudyCard = async (req, res) => {
 
 exports.createStudyCard = async (req, res) => {
   const { question, answer } = req.body;
+  const {
+    correctAttempts,
+    latestAttemptCorrect,
+    dueRetrvTime,
+    first,
+    nextStudyCardId,
+  } = {
+    correctAttempts: 0,
+    latestAttemptCorrect: false,
+    dueRetrvTime: Date.now(),
+    first: false,
+    nextStudyCardId: "",
+  };
+
   try {
-    const newStudyCard = new StudyCards({ question, answer });
+    const newStudyCard = new StudyCards({
+      question,
+      answer,
+      correctAttempts,
+      latestAttemptCorrect,
+      dueRetrvTime,
+      first,
+      nextStudyCardId,
+    });
+
     await newStudyCard.save();
     res
       .status(201)
