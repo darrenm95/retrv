@@ -11,13 +11,13 @@ exports.getAllSpacedRetrievals = async (req, res) => {
       spacedRetrievals.map(async (spacedRetrieval, index, array) => {
         let spacedRetrievalObj;
         let first = index === 0 ? true : false;
-        let nextStudyCardId =
+        let nextSpacedRetrievalId =
           index < array.length - 1 ? array[index + 1]._id : "last";
 
         try {
           spacedRetrievalObj = await StudyCards.findByIdAndUpdate(
             { _id: spacedRetrieval._id },
-            { $set: { first, nextStudyCardId } },
+            { $set: { first, nextSpacedRetrievalId } },
             { upsert: false, new: true }
           );
           return spacedRetrievalObj;
@@ -76,7 +76,7 @@ exports.getSingleSpacedRetrievalAnswer = async (req, res) => {
       _id: spacedRetrieval._id,
       question: spacedRetrieval.question,
       answer: spacedRetrieval.answer,
-      nextStudyCardId: spacedRetrieval.nextStudyCardId,
+      nextSpacedRetrievalId: spacedRetrieval.nextSpacedRetrievalId,
     };
 
     res.status(200).json(spacedRetrievalAnswer);

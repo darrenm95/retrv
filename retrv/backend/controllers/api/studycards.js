@@ -23,18 +23,10 @@ exports.getSingleStudyCard = async (req, res) => {
 
 exports.createStudyCard = async (req, res) => {
   const { question, answer } = req.body;
-  const {
-    correctAttempts,
-    latestAttemptCorrect,
-    dueRetrvTime,
-    first,
-    nextStudyCardId,
-  } = {
+  const { correctAttempts, latestAttemptCorrect, dueRetrvTime } = {
     correctAttempts: 0,
     latestAttemptCorrect: false,
     dueRetrvTime: Date.now(),
-    first: false,
-    nextStudyCardId: "",
   };
 
   try {
@@ -44,8 +36,6 @@ exports.createStudyCard = async (req, res) => {
       correctAttempts,
       latestAttemptCorrect,
       dueRetrvTime,
-      first,
-      nextStudyCardId,
     });
 
     await newStudyCard.save();
