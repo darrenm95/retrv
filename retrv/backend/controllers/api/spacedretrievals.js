@@ -95,6 +95,10 @@ exports.updateSpacedRetrieval = async (req, res) => {
   const latestAttemptCorrect = req.body.latestAttemptCorrect;
 
   try {
+    if (!req.body.latestAttemptCorrect) {
+      throw "Please enter latestAttemptCorrect key with value set to true or false.";
+    }
+
     const spacedRetrieval = await StudyCards.findById({
       _id: spacedRetrievalId,
     });
