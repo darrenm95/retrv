@@ -15,7 +15,7 @@ exports.getAllSpacedRetrievals = async (req, res) => {
         const nextSpacedRetrievalURI =
           index < array.length - 1
             ? `/api/spacedretrievals/${array[index + 1]._id}`
-            : "last";
+            : false;
 
         try {
           spacedRetrievalObj = await StudyCards.findByIdAndUpdate(
