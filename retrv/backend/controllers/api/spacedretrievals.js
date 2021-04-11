@@ -95,7 +95,7 @@ exports.updateSpacedRetrieval = async (req, res) => {
   const latestAttemptCorrect = req.body.latestAttemptCorrect;
 
   try {
-    if (!req.body.latestAttemptCorrect) {
+    if (req.body.latestAttemptCorrect === undefined) {
       throw "Please enter latestAttemptCorrect key with value set to true or false.";
     }
 
