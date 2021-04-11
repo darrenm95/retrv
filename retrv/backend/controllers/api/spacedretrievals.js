@@ -98,7 +98,7 @@ exports.updateSpacedRetrieval = async (req, res) => {
     const spacedRetrieval = await StudyCards.findById({
       _id: spacedRetrievalId,
     });
-
+    const { question, answer } = spacedRetrieval;
     let { correctAttempts, dueRetrvTime } = spacedRetrieval;
 
     if (latestAttemptCorrect) {
@@ -113,8 +113,8 @@ exports.updateSpacedRetrieval = async (req, res) => {
 
     const updatedSpacedRetrieval = await StudyCards.findByIdAndUpdate(
       { _id: spacedRetrievalId },
-      { $set: { correctAttempts, latestAttemptCorrect, dueRetrvTime } },
-      { upsert: false, new: true }
+      { question, answer, correctAttempts, latestAttemptCorrect, dueRetrvTime },
+      { new: true, overwrite: true }
     );
 
     res.status(200).json(updatedSpacedRetrieval);
