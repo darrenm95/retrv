@@ -7,19 +7,23 @@ exports.getAllSpacedRetrievals = async (req, res) => {
       dueRetrvTime: { $lt: Date.now() },
     });
 
-    let updatedSpacedRetrievals = await Promise.all(
+    const updatedSpacedRetrievals = await Promise.all(
       spacedRetrievals.map(async (spacedRetrieval, index, array) => {
         let spacedRetrievalObj;
-        let first = index === 0 ? true : false;
-        let nextSpacedRetrievalId =
-          index < array.length - 1 ? array[index + 1]._id : "last";
+        const first = index === 0 ? true : false;
+
+        const nextSpacedRetrievalURI =
+          index < array.length - 1
+            ? `/api/spacedretrievals/${array[index + 1]._id}`
+            : "last";
 
         try {
           spacedRetrievalObj = await StudyCards.findByIdAndUpdate(
             { _id: spacedRetrieval._id },
-            { $set: { first, nextSpacedRetrievalId } },
+            { $set: { first, nextSpacedRetrievalURI } },
             { upsert: false, new: true }
           );
+
           return spacedRetrievalObj;
         } catch (e) {
           console.log(e);
@@ -76,7 +80,7 @@ exports.getSingleSpacedRetrievalAnswer = async (req, res) => {
       _id: spacedRetrieval._id,
       question: spacedRetrieval.question,
       answer: spacedRetrieval.answer,
-      nextSpacedRetrievalId: spacedRetrieval.nextSpacedRetrievalId,
+      nextSpacedRetrievalURI: spacedRetrieval.nextSpacedRetrievalURI,
     };
 
     res.status(200).json(spacedRetrievalAnswer);
