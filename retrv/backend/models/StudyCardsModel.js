@@ -32,7 +32,7 @@ const StudyCardsSchema = new Schema({
   first: {
     type: Boolean,
   },
-  nextSpacedRetrievalId: {
+  nextSpacedRetrievalURI: {
     type: String,
   },
 });
