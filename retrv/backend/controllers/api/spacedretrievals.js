@@ -84,3 +84,37 @@ exports.getSingleSpacedRetrievalAnswer = async (req, res) => {
     res.status(500).send(e);
   }
 };
+
+exports.updateSpacedRetrieval = async (req, res) => {
+  const timeArray = [86400000, 604800000, 1209600000, 2419200000];
+  const spacedRetrievalId = mongoose.Types.ObjectId(req.params.id);
+  const latestAttemptCorrect = req.body.latestAttemptCorrect;
+
+  try {
+    const spacedRetrieval = await StudyCards.findById({
+      _id: spacedRetrievalId,
+    });
+
+    let { correctAttempts, dueRetrvTime } = spacedRetrieval;
+
+    if (latestAttemptCorrect) {
+      correctAttempts++;
+    }
+
+    if (correctAttempts < timeArray.length) {
+      dueRetrvTime = Date.now() + timeArray[correctAttempts];
+    } else {
+      dueRetrvTime = Date.now() + timeArray[length - 1];
+    }
+
+    const updatedSpacedRetrieval = await StudyCards.findByIdAndUpdate(
+      { _id: spacedRetrievalId },
+      { $set: { correctAttempts, latestAttemptCorrect, dueRetrvTime } },
+      { upsert: false, new: true }
+    );
+
+    res.status(200).json(updatedSpacedRetrieval);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+};

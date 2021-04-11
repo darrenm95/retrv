@@ -20,7 +20,7 @@ router.get(
   spacedRetrievalsController.getSingleSpacedRetrievalAnswer
 );
 
-// // Update ONE Spacedretrieval
-// router.get("/:id", spacedRetrievalsController.updateSpacedRetrieval);
+// Update ONE Spacedretrieval
+router.put("/:id", spacedRetrievalsController.updateSpacedRetrieval);
 
 module.exports = router;
